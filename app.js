@@ -96,7 +96,7 @@ var httpServer = http.createServer(function (request, response) {
 						console.log(serverInfo);
 						console.timeEnd("dbsave"); // end timer
 						response.writeHead(200, "OK", {'Content-Type': 'text/html; charset=utf-8'});
-						response.end('Server info looged in the console.' + '</tbody></table>');
+						response.end('Server info logged in the console.' + '</tbody></table>');
 					});
 
 					status.getServerInfo();
