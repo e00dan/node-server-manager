@@ -1,8 +1,30 @@
 var MsgBuffer = require('./MsgBuffer.js'), Communication = require('./Communication.js'), Player = require('./Player.js'), util = require('util'),
-	events = require('events');
+	events = require('events'), parseString = require('xml2js').parseString;
+
 function Status(host, port) {
 	this.OnlinePlayers = 0;
 	this.PlayersList = [];
+
+	this.getServerInfo = function() {
+		var origin = this;
+
+		var sendBuffer = new MsgBuffer(new Buffer([255, 255]));
+		sendBuffer.putString('info', 'ASCII');
+
+		var communication = new Communication(host, port);
+
+		communication.on('connected', function () {
+			communication.send(sendBuffer.getBuffer(true));
+		})
+
+		communication.on('receivedBytes', function(bytes) {
+			parseString(bytes, function(err, result) {
+				origin.emit('serverInfo', result);
+			});
+		});
+
+		communication.connect();
+	}
 
 	this.getOnlinePlayers = function() {
 		/* How TFS handles this: 

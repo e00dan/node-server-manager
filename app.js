@@ -57,35 +57,49 @@ function processPost(request, response, callback) {
         });
 
     } else {
-        response.writeHead(405, {'Content-Type': 'text/plain'});
-        response.end();
-    }
+		response.writeHead(405, {'Content-Type': 'text/plain'});
+		response.end();
+	}
 }
 
 var httpServer = http.createServer(function (request, response) {
 	if(request.method == 'POST') {
 		processPost(request, response, function() {
-            console.log(response.post);
-            if(response.post.ip != null) {
-            	if(config.enableOOP) {
-            		console.time("dbsave"); // start timer
+			console.log(response.post);
+			if(response.post.ip != null) {
+				if('getOnlinePlayers' in response.post) {
+					console.log('Request: Get Online Players.');
+					console.time("dbsave"); // start timer
 
 					var status = new Status(response.post.ip, 7171);
 
-		            status.on('players', function () {
-		            	var content = '<table><thead><th>Numer</th><th>Nick</th><th>Level</th></thead><tbody>';
+					status.on('players', function () {
+						var content = '<table><thead><th>Numer</th><th>Nick</th><th>Level</th></thead><tbody>';
 						content += 'On server with IP: `' + response.post.ip + '` there are <b>' + status.PlayersList.length + '</b> players.<br/>';
-						var i = 0;
 
-			            status.PlayersList.map(function (p) {
-			            	i++;
+						var i = 0;
+						status.PlayersList.map(function (p) {
+							i++;
 							content += '<tr><td>' + i + '.</td><td>' + p.Name + '</td><td>' + p.Level + '</td>';
 						});
-			            console.timeEnd("dbsave"); // end timer
-			            response.writeHead(200, "OK", {'Content-Type': 'text/html; charset=utf-8'});
-			            response.end(content + '</tbody></table>');
-		            });
-		       			status.getOnlinePlayers();
+						console.timeEnd("dbsave"); // end timer
+						response.writeHead(200, "OK", {'Content-Type': 'text/html; charset=utf-8'});
+						response.end(content + '</tbody></table>');
+					});
+					status.getOnlinePlayers();
+				} else if('getServerInfo' in response.post) {
+					console.log('Request: Get Server Info.');
+					console.time("dbsave"); // start timer
+					var status = new Status('memsoria.pl', 7171);
+
+					status.on('serverInfo', function(serverInfo) {
+						console.log(serverInfo);
+						console.timeEnd("dbsave"); // end timer
+						response.writeHead(200, "OK", {'Content-Type': 'text/html; charset=utf-8'});
+						response.end('Server info looged in the console.' + '</tbody></table>');
+					});
+
+					status.getServerInfo();
 
 				}
 			}
@@ -93,7 +107,7 @@ var httpServer = http.createServer(function (request, response) {
         });
 	} else {
 		response.writeHead(200, {"Content-Type" : "text/html; charset=utf-8"});
-		response.end('<html><form action="/" method="post"><input type="text" name="ip" placeholder="Server IP..."></input><button type="submit">Get Online Players List</button></form></html>');
+		response.end('<html><form action="/" method="post"><input type="text" name="ip" placeholder="Server IP..."></input><button type="submit" name="getOnlinePlayers">Get Online Players List</button><button type="submit" name="getServerInfo">Get Server Info</button></form></html>');
 	}
 	
 });
@@ -119,7 +133,6 @@ httpServer.on('error', function(e) {
 		/* KONP --END */
 	}
 });
-
 httpServer.listen(config.port);
 /* HTTP -- END */
 
