@@ -15,7 +15,7 @@ console.log('[STARTUP][Info]: Config: ', config);
 
 /* REQUIRE */
 var net = require('net'), util = require('util'), events = require('events'), MsgBuffer = require('./MsgBuffer.js'),
-	Communication = require('./Communication.js'), Status = require('./Status.js'), ServerStatus = require('./ServerStatus.js');
+	Communication = require('./Communication.js'), Status = require('./Status.js'), ServerInfo= require('./ServerInfo.js');
 if(config.killNodeProcesses)
 	var exec 		= require('child_process').exec;
 if(config.httpServer) {

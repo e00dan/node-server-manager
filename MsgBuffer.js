@@ -1,11 +1,11 @@
-function MsgBuffer(dataBuffer) {
+module.exports = function(dataBuffer) {
 	this.position 		= 0;
 	this.CompleteLength = 0;
 
 	var buffer 			= dataBuffer;
 	var storedBuffers 	= [];
 
-	console.log('[MsgBuffer::__construct][Info]: buffer.length = ' + buffer.length + '.');
+	//console.log('[MsgBuffer::__construct][Info]: buffer.length = ' + buffer.length + '.');
 
 
 	this.verifyNextByte = function(byte) {
@@ -66,9 +66,7 @@ function MsgBuffer(dataBuffer) {
 	}
 
 	this.putString = function(string, encoding) {
-		var stringBuffer = new Buffer(string);
-		buffer = Buffer.concat(new Array(buffer, stringBuffer));
+		var stringBuffer = new Buffer(string, encoding);
+		buffer = Buffer.concat([buffer, stringBuffer]);
 	}
 }
-
-module.exports = MsgBuffer;
