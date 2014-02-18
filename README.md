@@ -7,6 +7,7 @@ Node Server Manager is a tool written in node.js
 Application requires node.js installed on your machine and following node modules:
 
 * simple-enum
+* xml2js
 
 After you've installed node.js, you can install node modules using:
 ~~~~ bash
