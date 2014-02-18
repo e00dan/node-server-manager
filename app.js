@@ -107,7 +107,7 @@ var httpServer = http.createServer(function (request, response) {
 				} else if('getPlayerInfo' in response.post && response.post.playerName != null) {
 					console.log('Request: Get Player Info.');
 
-					var Status = new Status(response.post.ip, response.post.port);
+					var status = new Status(response.post.ip, response.post.port);
 					status.getPlayerInfo(response.post.playerName);
 				} else
 					console.log('Undefined request.');
