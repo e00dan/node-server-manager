@@ -67,7 +67,7 @@ function MsgBuffer(dataBuffer) {
 
 	this.putString = function(string, encoding) {
 		var stringBuffer = new Buffer(string);
-		buffer = Buffer.concat([buffer, stringBuffer]);
+		buffer = Buffer.concat(new Array(buffer, stringBuffer));
 	}
 }
 

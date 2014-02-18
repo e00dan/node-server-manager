@@ -15,7 +15,7 @@ console.log('[STARTUP][Info]: Config: ', config);
 
 /* REQUIRE */
 var net = require('net'), util = require('util'), events = require('events'), MsgBuffer = require('./MsgBuffer.js'),
-	Communication = require('./Communication.js'), Status = require('./Status.js');
+	Communication = require('./Communication.js'), Status = require('./Status.js'), ServerStatus = require('./ServerStatus.js');
 if(config.killNodeProcesses)
 	var exec 		= require('child_process').exec;
 if(config.httpServer) {
@@ -66,12 +66,12 @@ var httpServer = http.createServer(function (request, response) {
 	if(request.method == 'POST') {
 		processPost(request, response, function() {
 			console.log(response.post);
-			if(response.post.ip != null) {
+			if(response.post.ip != null && response.post.port != null) {
 				if('getOnlinePlayers' in response.post) {
 					console.log('Request: Get Online Players.');
 					console.time("dbsave"); // start timer
 
-					var status = new Status(response.post.ip, 7171);
+					var status = new Status(response.post.ip, response.post.port);
 
 					status.on('players', function () {
 						var content = '<table><thead><th>Numer</th><th>Nick</th><th>Level</th></thead><tbody>';
@@ -90,24 +90,42 @@ var httpServer = http.createServer(function (request, response) {
 				} else if('getServerInfo' in response.post) {
 					console.log('Request: Get Server Info.');
 					console.time("dbsave"); // start timer
-					var status = new Status(response.post.ip, 7171);
+					var status = new Status(response.post.ip, response.post.port);
 
 					status.on('serverInfo', function(serverInfo) {
-						console.log(serverInfo);
+						var info = new ServerInfo(serverInfo);
+						var uptime = info.getUptime();
+
 						console.timeEnd("dbsave"); // end timer
 						response.writeHead(200, "OK", {'Content-Type': 'text/html; charset=utf-8'});
-						response.end('Server info logged in the console.' + '</tbody></table>');
+						response.end('Server status: Online<br/>' +
+							'Uptime: ' + uptime.hours + ' hours, ' + uptime.minutes + ' minutes and ' + uptime.seconds + ' seconds<br/>' +
+							'<br/>');
 					});
 
 					status.getServerInfo();
+				} else if('getPlayerInfo' in response.post && response.post.playerName != null) {
+					console.log('Request: Get Player Info.');
 
-				}
+					var Status = new Status(response.post.ip, response.post.port);
+					status.getPlayerInfo(response.post.playerName);
+				} else
+					console.log('Undefined request.');
 			}
-
         });
 	} else {
 		response.writeHead(200, {"Content-Type" : "text/html; charset=utf-8"});
-		response.end('<html><form action="/" method="post"><input type="text" name="ip" placeholder="Server IP..."></input><button type="submit" name="getOnlinePlayers">Get Online Players List</button><button type="submit" name="getServerInfo">Get Server Info</button></form></html>');
+		response.end('<html>' +
+			'<form action="/" method="post">' +
+				'<input type="text" name="ip" placeholder="Server IP..."/>' +
+				'<input type="number" name="port" placeholder="Server Port..."/>' +
+				'<button type="submit" name="getOnlinePlayers">Get Online Players List</button>' +
+				'<button type="submit" name="getServerInfo">Get Server Info</button>' +
+				'<br/>' +
+				'<input type="text" name="playerName" placeholder="Player\'s name..."/> ' +
+				'<button type="submit" name="getPlayerInfo">Get Player Info</button>' +
+			'</form>' +
+		'</html>');
 	}
 
 });
