@@ -6,7 +6,9 @@ module.exports = function(dataBuffer) {
 	var storedBuffers 	= [];
 
 	//console.log('[MsgBuffer::__construct][Info]: buffer.length = ' + buffer.length + '.');
-
+	if(!(dataBuffer instanceof Buffer) && dataBuffer instanceof Array) {
+		buffer = new Buffer(buffer);
+	}
 
 	this.verifyNextByte = function(byte) {
 		var bool = (buffer[this.position] === byte);
@@ -68,9 +70,8 @@ module.exports = function(dataBuffer) {
 	this.putString = function(string, encoding, addLength) {
 		encoding = typeof encoding !== 'undefined' ? encoding : 'ASCII';
 		addLength = typeof addLength !== 'undefined' ? addLength : 'false';
-		if(addLength == true) {
+		if(addLength == true)
 			this.putUint16(string.length);
-		}
 		var stringBuffer = new Buffer(string, encoding);
 		buffer = Buffer.concat([buffer, stringBuffer]);
 	}
@@ -79,5 +80,9 @@ module.exports = function(dataBuffer) {
 		var uintBuffer = new Buffer(2);
 		uintBuffer.writeUInt16LE(value, 0);
 		buffer = Buffer.concat([buffer, uintBuffer]);
+	}
+
+	this.getLength = function() {
+		return buffer.length;
 	}
 }
