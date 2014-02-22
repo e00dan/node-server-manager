@@ -1,0 +1,33 @@
+{
+  "name": "node-server-manager",
+  "version": "0.0.1",
+  "description": "Tool written in node.js to get various information about server and, in future, give server administrators better control over their server.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kuzirashi/node-server-manager.git"
+  },
+  "keywords": [
+    "node",
+    "server",
+    "manager",
+    "the",
+    "forgotten",
+    "server",
+    "tibia",
+    "kuzirashi"
+  ],
+  "author": "Daniel \"Kuzirashi\"",
+  "license": "Creative Commons Attribution 4.0 International Public License",
+  "bugs": {
+    "url": "https://github.com/Kuzirashi/node-server-manager/issues"
+  },
+  "homepage": "https://github.com/Kuzirashi/node-server-manager",
+  "dependencies": {
+    "simple-enum": "0.0.3",
+    "xml2js": "~0.4.1"
+  }
+}
