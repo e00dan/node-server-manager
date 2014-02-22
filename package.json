@@ -4,7 +4,7 @@
   "description": "Tool written in node.js to get various information about server and, in future, give server administrators better control over their server.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
