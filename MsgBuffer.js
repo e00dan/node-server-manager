@@ -65,8 +65,19 @@ module.exports = function(dataBuffer) {
 		return buffer;
 	}
 
-	this.putString = function(string, encoding) {
+	this.putString = function(string, encoding, addLength) {
+		encoding = typeof encoding !== 'undefined' ? encoding : 'ASCII';
+		addLength = typeof addLength !== 'undefined' ? addLength : 'false';
+		if(addLength == true) {
+			this.putUint16(string.length);
+		}
 		var stringBuffer = new Buffer(string, encoding);
 		buffer = Buffer.concat([buffer, stringBuffer]);
+	}
+
+	this.putUint16 = function(value) {
+		var uintBuffer = new Buffer(2);
+		uintBuffer.writeUInt16LE(value, 0);
+		buffer = Buffer.concat([buffer, uintBuffer]);
 	}
 }

@@ -9,7 +9,7 @@ function Status(host, port) {
 		var origin = this;
 
 		var sendBuffer = new MsgBuffer(new Buffer([255, 255]));
-		sendBuffer.putString('info', 'ASCII');
+		sendBuffer.putString('info');
 
 		var communication = new Communication(host, port);
 
@@ -81,7 +81,7 @@ function Status(host, port) {
 					console.log('[Status::getOnlinePlayers][Debug]: while(' + origin.PlayersList.length + ' < ' + origin.OnlinePlayers + ').');
 					var nickLength 	= msg.getUint16();
 					var player 		= new Player(msg.getString(nickLength, 'UTF8'), msg.getInt32());
-					console.log(player);
+					//console.log(player);
 					origin.PlayersList.push(player);
 				}
 				console.log('[Status::getOnlinePlayers][Info]: Got all players(' + origin.PlayersList.length + ').')
@@ -94,7 +94,7 @@ function Status(host, port) {
 
 	this.getPlayerInfo = function(name) {
 		var sendBuffer = new MsgBuffer(new Buffer([0xFF, 0x01, 0x40]));
-		sendBuffer.putString(name, 'ASCII');
+		sendBuffer.putString(name, 'ASCII', true);
 
 		var communication = new Communication(host, port);
 
@@ -107,7 +107,7 @@ function Status(host, port) {
 			if(bytes[2] == 0x22)
 				console.log('0x22! : REQUEST_PLAYER_STATUS_INFO');
 			if(bytes[3] == 0x01)
-				console.log('online?');
+				console.log('ONLINE');
 			else if(bytes[3] == 0x00)
 				console.log('offline?');
 		});
