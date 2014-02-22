@@ -1,8 +1,11 @@
-Node Server Manager is a tool written in node.js
+[![Build Status](https://travis-ci.org/Kuzirashi/node-server-manager.png?branch=master)](https://travis-ci.org/Kuzirashi/node-server-manager)
+
+
+#Node Server Manager is a tool written in node.js
 ------------
 ...to get various information about server and, in future, give server administrators better control over their server.
 
-### Requirements
+## Requirements
 
 Application requires node.js installed on your machine and following node modules:
 
@@ -14,7 +17,7 @@ After you've installed node.js, you can install node modules using:
 npm install module-name
 ~~~~
 
-### How to use
+## How to use
 
 After you've downloaded files you have to open system's console, go to directory with application and run it with command:
 ~~~~ bash
