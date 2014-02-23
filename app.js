@@ -8,14 +8,12 @@ var config = {
 }
 /* CONFIG --END */
 
-/* STARTUP */
-console.log('[STARTUP][Info]: Current process: { PID: ' + process.pid + ', TITLE: ' + process.title + ' }');
-console.log('[STARTUP][Info]: Config: ', config);
-/* STARTUP --END */
 
 /* REQUIRE */
 var net = require('net'), util = require('util'), events = require('events'), MsgBuffer = require('./MsgBuffer.js'),
-	Communication = require('./Communication.js'), Status = require('./Status.js'), ServerInfo= require('./ServerInfo.js');
+	Communication = require('./Communication.js'), Status = require('./Status.js'), ServerInfo = require('./ServerInfo.js'),
+	express = require('express'), app = express(), cons = require('consolidate'), routes = require('./routes'), user = require('./routes/user'),
+	verbose = process.env.NODE_ENV != 'test';
 if(config.killNodeProcesses)
 	var exec 		= require('child_process').exec;
 if(config.httpServer) {
@@ -34,9 +32,44 @@ Array.prototype.remove = function() {
 	}
 	return this;
 };
+
+app.map = function(a, route){
+  route = route || '';
+  for (var key in a) {
+    switch (typeof a[key]) {
+      // { '/path': { ... }}
+      case 'object':
+        app.map(a[key], route + key);
+        break;
+      // get: function(){ ... }
+      case 'function':
+        if (verbose) console.log('%s %s', key, route);
+        app[key](route, a[key]);
+        break;
+    }
+  }
+};
 /* PM --END */
 
 /* HTTP */
+
+app.set('port', process.env.PORT || 3000);
+app.set('views', './views');
+app.use(express.static(__dirname + '/public'));
+
+app.engine('hbs', cons.handlebars);
+app.set('view engine', 'hbs');
+
+app.map({
+	'/' : {
+		get: routes.index
+	}
+});
+
+http.createServer(app).listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});
+
 function processPost(request, response, callback) {
     var queryData = "";
     if(typeof callback !== 'function') return null;
