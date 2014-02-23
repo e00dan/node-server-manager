@@ -3,7 +3,7 @@
 
 #Node Server Manager is a tool written in node.js
 ------------
-...to get various information about server and, in future, give server administrators better control over their server.
+...to get various information about server and, in future, give server administrators more control over server.
 
 ## Requirements
 

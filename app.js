@@ -55,14 +55,25 @@ app.map = function(a, route){
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', './views');
+app.use(express.compress());
 app.use(express.static(__dirname + '/public'));
 
 app.engine('hbs', cons.handlebars);
 app.set('view engine', 'hbs');
+app.set('view options', { layout: true });
+
+features = require('./routes/features');
+contact = require('./routes/contact');
 
 app.map({
 	'/' : {
 		get: routes.index
+	},
+	'/features' : {
+		get: features.get
+	},
+	'/contact' : {
+		get: contact.get
 	}
 });
 

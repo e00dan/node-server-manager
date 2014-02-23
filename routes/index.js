@@ -4,7 +4,11 @@
  */
 
 exports.index = function(req, res) {
-	res.render('index', {
-		title: 'Node Server Manager'
+	res.render('layout', {
+		title: 'Node Server Manager',
+		activeNav: '/',
+		partials : {
+			content: 'about'
+		}
 	});
 };
