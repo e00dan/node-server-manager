@@ -30,9 +30,7 @@
 							</ul>
 						</div>
 					</div>
-
 					{{>content}}
-
 					<div class="mastfoot">
 						<div class="inner">
 							<p>Template by <a href="https://twitter.com/mdo">@mdo</a>. Created by <a href="http://stackoverflow.com/users/2166409/daniel">Daniel "Kuzirashi".</a></p>
@@ -47,6 +45,7 @@
 		<script src="javascripts/bootstrap.min.js"></script>
 		<script>
 		$('a[href="{{activeNav}}"]').parent().addClass('active');
+		{{>script}}
 		</script>
 	</body>
 </html>

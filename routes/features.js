@@ -8,7 +8,8 @@ exports.get = function(req, res) {
 		title: 'Features',
 		activeNav: 'features',
 		partials : {
-			content: 'features'
+			content: 'features',
+			script: 'features_script'
 		}
 	});
 };

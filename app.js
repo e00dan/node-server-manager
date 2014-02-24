@@ -10,8 +10,7 @@ var config = {
 
 
 /* REQUIRE */
-var net = require('net'), util = require('util'), events = require('events'), MsgBuffer = require('./MsgBuffer.js'),
-	Communication = require('./Communication.js'), Status = require('./Status.js'), ServerInfo = require('./ServerInfo.js'),
+var Status = require('./Status.js'), ServerInfo = require('./ServerInfo.js'),
 	express = require('express'), app = express(), cons = require('consolidate'), routes = require('./routes'),
 	verbose = process.env.NODE_ENV != 'test';
 if(config.killNodeProcesses)
@@ -64,6 +63,7 @@ app.set('view options', { layout: true });
 
 features = require('./routes/features');
 contact = require('./routes/contact');
+api = require('./routes/api');
 
 app.map({
 	'/' : {
@@ -74,6 +74,21 @@ app.map({
 	},
 	'/contact' : {
 		get: contact.get
+	},
+	'/api' : {
+		'/features' : {
+			'/get' : {
+				'/server-status' : {
+					get: api.features.serverStatus,
+					'/:ip' : {
+						get: api.features.serverStatus,
+						'/:port' : {
+							get: api.features.serverStatus
+						}
+					}
+				}
+			}
+		}
 	}
 });
 

@@ -1,0 +1,31 @@
+<div class="inner cover">
+	<h2 class="cover-heading">Get Server Status</h3>
+	<p class="lead">Get server status - information, online time etc.</p>
+	<p class="lead">
+		<form action="api/features/get/server-status/">
+			<input type="text" name="ip" placeholder="Server IP" class="form-control get-feature-input"/>
+			<input type="number" name="port" placeholder="Port" class="form-control get-feature-input"/>
+			<button type="submit" class="btn btn-default get-feature-btn">Get</button>
+		</form>
+	</p>
+	<br/>
+</div>
+<style>
+.get-feature-btn {
+	margin-left: 10px;
+	margin-top: -3px;
+}
+.get-feature-input {
+	width: auto;
+	display: inline;
+}
+.well-result {
+	background-color: #181818;
+}
+.close-icon {
+	float: right;
+	top: -20px;
+	right: -20px;
+	cursor: pointer;
+}
+</style>
