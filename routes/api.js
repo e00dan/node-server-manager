@@ -14,7 +14,7 @@ exports.features = {
 				var info = new ServerInfo(serverInfo);
 				var uptime = info.getUptime();
 
-				res.send('Server status: Online<br/>' +
+				res.send(message + 'Server status: Online<br/>' +
 					'Uptime: ' + uptime.hours + ' hours, ' + uptime.minutes + ' minutes and ' + uptime.seconds + ' seconds<br/>' +
 					'<br/>');
 			});
