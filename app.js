@@ -33,20 +33,20 @@ Array.prototype.remove = function() {
 };
 
 app.map = function(a, route){
-  route = route || '';
-  for (var key in a) {
-    switch (typeof a[key]) {
-      // { '/path': { ... }}
-      case 'object':
-        app.map(a[key], route + key);
-        break;
-      // get: function(){ ... }
-      case 'function':
-        if (verbose) console.log('%s %s', key, route);
-        app[key](route, a[key]);
-        break;
-    }
-  }
+	route = route || '';
+	for (var key in a) {
+		switch (typeof a[key]) {
+			// { '/path': { ... }}
+			case 'object':
+				app.map(a[key], route + key);
+				break;
+			// get: function(){ ... }
+			case 'function':
+				if (verbose) console.log('%s %s', key, route);
+				app[key](route, a[key]);
+				break;
+		}
+	}
 };
 /* PM --END */
 
@@ -67,6 +67,8 @@ features = require('./routes/features');
 contact = require('./routes/contact');
 api = require('./routes/api');
 
+if(verbose)
+	console.log('--/ Router Map \\--');
 app.map({
 	'/' : {
 		get: routes.index
@@ -93,9 +95,12 @@ app.map({
 		}
 	}
 });
+if(verbose)
+	console.log('------------------');
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+http.createServer(app).listen(app.get('port'), function() {
+	if(verbose)
+		console.log('Express server listening on port ' + app.get('port'));
 });
 
 function processPost(request, response, callback) {
@@ -148,23 +153,6 @@ var httpServer = http.createServer(function (request, response) {
 						response.end(content + '</tbody></table>');
 					});
 					status.getOnlinePlayers();
-				} else if('getServerInfo' in response.post) {
-					console.log('Request: Get Server Info.');
-					console.time("dbsave"); // start timer
-					var status = new Status(response.post.ip, response.post.port);
-
-					status.on('serverInfo', function(serverInfo) {
-						var info = new ServerInfo(serverInfo);
-						var uptime = info.getUptime();
-
-						console.timeEnd("dbsave"); // end timer
-						response.writeHead(200, "OK", {'Content-Type': 'text/html; charset=utf-8'});
-						response.end('Server status: Online<br/>' +
-							'Uptime: ' + uptime.hours + ' hours, ' + uptime.minutes + ' minutes and ' + uptime.seconds + ' seconds<br/>' +
-							'<br/>');
-					});
-
-					status.getServerInfo();
 				} else if('getPlayerInfo' in response.post && response.post.playerName != null) {
 					console.log('Request: Get Player Info.');
 
@@ -181,7 +169,6 @@ var httpServer = http.createServer(function (request, response) {
 				'<input type="text" name="ip" placeholder="Server IP..."/>' +
 				'<input type="number" name="port" placeholder="Server Port..."/>' +
 				'<button type="submit" name="getOnlinePlayers">Get Online Players List</button>' +
-				'<button type="submit" name="getServerInfo">Get Server Info</button>' +
 				'<br/>' +
 				'<input type="text" name="playerName" placeholder="Player\'s name..."/> ' +
 				'<button type="submit" name="getPlayerInfo">Get Player Info</button>' +
