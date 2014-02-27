@@ -1,14 +1,14 @@
 <div class="inner cover">
-	<h2 class="cover-heading">Get Server Status</h3>
-	<p class="lead">Get server status - information, online time etc.</p>
 	<p class="lead">
-		<form action="api/features/get/server-status/">
-			<input type="text" name="ip" placeholder="Server IP" class="form-control get-feature-input"/>
-			<input type="number" name="port" placeholder="Port" class="form-control get-feature-input"/>
-			<button type="submit" class="btn btn-default get-feature-btn">Get</button>
-		</form>
+		<ul class="nav nav-tabs nav-justified">
+			<li><a href="{{prefix}}features/get-server-status">Get Server Status</a></li>
+			<li><a href="{{prefix}}features/get-online-players">Get Online Players</a></li>
+			<li><a href="{{prefix}}features/get-player-status">Get Player Status</a></li>
+		</ul>
 	</p>
-	<br/>
+	{{#active}}
+		{{>feature_module}}
+	{{/active}}
 </div>
 <style>
 .get-feature-btn {

@@ -7,8 +7,9 @@
 		<title>{{title}}</title>
 
 		<!-- Bootstrap -->
-		<link href="stylesheets/bootstrap.min.css" rel="stylesheet" />
-		<link href="stylesheets/cover.css" rel="stylesheet">
+		<link href="{{prefix}}stylesheets/bootstrap.min.css" rel="stylesheet" />
+		<link href="{{prefix}}stylesheets/cover.css" rel="stylesheet"/>
+		<link href="{{prefix}}stylesheets/style.css" rel="stylesheet"/>
 
 		<!--[if lt IE 9]>
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -19,14 +20,13 @@
 		<div class="site-wrapper">
 			<div class="site-wrapper-inner">
 				<div class="cover-container">
-
 					<div class="masthead clearfix">
 						<div class="inner">
 							<h2 class="masthead-brand">{{title}}</h2>
 							<ul class="nav masthead-nav">
-								<li><a href="/">Home</a></li>
-								<li><a href="features">Features</a></li>
-								<li><a href="contact">Contact</a></li>
+								<li><a href="{{prefix}}">Home</a></li>
+								<li><a href="{{prefix}}features">Features</a></li>
+								<li><a href="{{prefix}}contact">Contact</a></li>
 							</ul>
 						</div>
 					</div>
@@ -41,10 +41,10 @@
 			</div>
 		</div>
 
-		<script src="javascripts/jquery-2.1.0.min.js"></script>
-		<script src="javascripts/bootstrap.min.js"></script>
+		<script src="{{prefix}}javascripts/jquery-2.1.0.min.js"></script>
+		<script src="{{prefix}}javascripts/bootstrap.min.js"></script>
 		<script>
-		$('a[href="{{activeNav}}"]').parent().addClass('active');
+		$('a[href$="{{activeNav}}"]').parent().addClass('active');
 		{{>script}}
 		</script>
 	</body>

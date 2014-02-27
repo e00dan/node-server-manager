@@ -1,8 +1,16 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.list-group-item {
+	background-color: transparent;
 }
 
-a {
-  color: #00B7FF;
+.panel {
+	background-color: transparent;
 }
+
+.nav-tabs {
+	text-shadow: none;
+}
+
+.nav-tabs.nav-justified>li>a:hover {
+	color: white;
+	background-color: rgb(85, 85, 85);
+};

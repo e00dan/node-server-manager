@@ -1,4 +1,6 @@
-var validator = require('validator'), Status = require('.././Status'), ServerInfo = require('.././ServerInfo');
+var validator = require('validator'),
+	Status = require('.././Status'),
+	ServerInfo = require('.././ServerInfo');
 
 exports.features = {
 	serverStatus: function(req, res) {
@@ -29,7 +31,6 @@ exports.features = {
 			});
 
 			status.getServerInfo();
-
 		}
 	}
 }

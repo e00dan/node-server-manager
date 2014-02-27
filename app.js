@@ -74,7 +74,10 @@ app.map({
 		get: routes.index
 	},
 	'/features' : {
-		get: features.get
+		get: features.get,
+		'/:name' : {
+			get: features.get
+		}
 	},
 	'/contact' : {
 		get: contact.get
