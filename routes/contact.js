@@ -8,7 +8,8 @@ exports.get = function(req, res) {
 		title: 'Contact',
 		activeNav: 'contact',
 		partials : {
-			content: 'contact'
+			content: 'contact',
+			script: 'contact_script'
 		}
 	});
 };

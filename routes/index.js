@@ -8,7 +8,8 @@ exports.index = function(req, res) {
 		title: 'Node Server Manager',
 		activeNav: '/',
 		partials : {
-			content: 'about'
+			content: 'about',
+			script: 'about_script'
 		}
 	});
 };
