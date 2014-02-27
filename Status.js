@@ -1,7 +1,11 @@
-var MsgBuffer = require('./MsgBuffer.js'), Communication = require('./Communication.js'), Player = require('./Player.js'), util = require('util'),
-	events = require('events'), parseString = require('xml2js').parseString;
+var MsgBuffer = require('./MsgBuffer.js'),
+	Communication = require('./Communication.js'),
+	Player = require('./Player.js'),
+	util = require('util'),
+	events = require('events'),
+	parseString = require('xml2js').parseString;
 
-function Status(host, port) {
+exports = module.exports = Status = function Status(host, port) {
 	this.OnlinePlayers = 0;
 	this.PlayersList = [];
 
@@ -42,15 +46,7 @@ function Status(host, port) {
 			there is a switch:
 			a) 3 BYTE = 0xFF
 				4 BYTE = 0x01
-			b) 3 BYTE = 0x01
-				REQUEST_BASIC_SERVER_INFO 	= 0x01,
-				REQUEST_SERVER_OWNER_INFO	= 0x02,
-				REQUEST_MISC_SERVER_INFO	= 0x04,
-				REQUEST_PLAYERS_INFO		= 0x08,
-				REQUEST_SERVER_MAP_INFO		= 0x10,
-				REQUEST_EXT_PLAYERS_INFO	= 0x20,
-				REQUEST_PLAYER_STATUS_INFO	= 0x40,
-				REQUEST_SERVER_SOFTWARE_INFO	= 0x80
+			b) 3 BYTE = 0x01 - REQUEST_BASIC_SERVER_INFO
 		*/
 		const REQUEST_BASIC_SERVER_INFO	 = 0x01,
 			REQUEST_SERVER_OWNER_INFO	 = 0x02,
@@ -123,5 +119,4 @@ function Status(host, port) {
 		communication.connect();
 	}
 }
-module.exports = Status;
 util.inherits(Status, events.EventEmitter);

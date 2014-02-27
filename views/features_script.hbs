@@ -16,5 +16,10 @@ $('form').on('submit', function(e) {
 	});
 });
 $(document).on('click', '.close-icon', function() {
+	var elements = $('.well-result');
+	if((elements.length - 1) == 0) {
+		$('.masthead').fadeIn(500);
+		$('.mastfoot').fadeIn(500);
+	}
 	$(this).parent().fadeOut(500);
 });

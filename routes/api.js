@@ -3,7 +3,7 @@ var validator = require('validator'), Status = require('.././Status'), ServerInf
 exports.features = {
 	serverStatus: function(req, res) {
 		if(!req.params.ip || !req.params.port || !(validator.isIP(req.params.ip) || (validator.isLength(req.params.ip, 2, 30) && validator.contains(req.params.ip, '.'))) || !(validator.isInt(req.params.port) && req.params.port <= 65535))
-			res.send('You have to specify valid IP address and port.');
+			res.send('<span class="label label-danger">You have to specify valid IP address and port.</span>');
 		else {
 			ip = validator.blacklist(req.params.ip, '<>$');
 			message = 'Get Server Status for server with IP: ' + ip + ' and PORT: ' + req.params.port + '.<br/>';
@@ -14,7 +14,7 @@ exports.features = {
 				var info = new ServerInfo(serverInfo);
 				var uptime = info.getUptime();
 
-				res.send(message + 'Server status: Online<br/>' +
+				res.send(message + 'Server status: <span class="label label-success">Online</span><br/>' +
 					'Uptime: ' + uptime.hours + ' hours, ' + uptime.minutes + ' minutes and ' + uptime.seconds + ' seconds<br/>' +
 					'<br/>');
 			});
@@ -25,7 +25,7 @@ exports.features = {
 					errorMsg += 'Connection refused.';
 				else if(err.code == 'ECONNLOST')
 					errorMsg += 'Connection lost. Maybe server status delay is active.';
-				res.send(message + '<div class="label label-danger">' + errorMsg + '</div>');
+				res.send(message + '<span class="label label-danger">' + errorMsg + '</span>');
 			});
 
 			status.getServerInfo();
