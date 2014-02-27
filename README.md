@@ -24,6 +24,4 @@ After you've installed everything, go to directory with application and run it w
 ~~~~ bash
 node app.js
 ~~~~
-Then, open your browser and go to following URL: [http://localhost:7777](http://localhost:7777) or [http://localhost:3000](http://localhost:3000) - both should be working at this moment.
-You will see an input box and a button. Type server's ip and press "Get Online Players List".
-If data you've provided is correct, you should see a list of online players with their levels.
+Then, open your browser and go to following URL: [http://localhost:7777](http://localhost:7777) or [http://localhost:3000](http://localhost:3000) - both should be working at this moment, but port 3000 is preferred.

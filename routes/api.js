@@ -19,7 +19,17 @@ exports.features = {
 					'<br/>');
 			});
 
+			status.on('error', function(err) {
+				errorMsg = 'Error: ';
+				if(err.code == 'ECONNREFUSED')
+					errorMsg += 'Connection refused.';
+				else if(err.code == 'ECONNLOST')
+					errorMsg += 'Connection lost. Maybe server status delay is active.';
+				res.send(message + '<div class="label label-danger">' + errorMsg + '</div>');
+			});
+
 			status.getServerInfo();
+
 		}
 	}
 }

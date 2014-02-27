@@ -23,6 +23,14 @@ function Status(host, port) {
 			});
 		});
 
+		communication.on('error', function(e) {
+			origin.emit('error', e);
+		});
+
+		communication.on('lost', function(e) {
+			origin.emit('error', e);
+		});
+		
 		communication.connect();
 	}
 
