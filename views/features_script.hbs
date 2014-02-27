@@ -16,7 +16,7 @@ $('form').on('submit', function(e) {
 	});
 });
 $(document).on('click', '.close-icon', function() {
-	var elements = $('.well-result');
+	var elements = $('.well-result:visible');
 	if((elements.length - 1) == 0) {
 		$('.masthead').fadeIn(500);
 		$('.mastfoot').fadeIn(500);
