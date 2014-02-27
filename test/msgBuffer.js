@@ -1,4 +1,5 @@
-var should = require('should'), MsgBuffer = require('../MsgBuffer.js');
+var should = require('should')
+	, MsgBuffer = require('../MsgBuffer.js');
 
 describe('MsgBuffer', function() {
 	describe('#verifyNextByte()', function() {

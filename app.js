@@ -52,6 +52,8 @@ app.map = function(a, route){
 
 /* HTTP */
 
+exports = module.exports = app;
+
 app.set('port', process.env.PORT || 3000);
 app.set('views', './views');
 app.use(express.compress());
