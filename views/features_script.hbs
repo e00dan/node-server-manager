@@ -14,6 +14,8 @@ $('form').on('submit', function(e) {
 		if(elements.length <= 0) {
 			$('.masthead').fadeOut(500);
 			$('.mastfoot').fadeOut(500);
+			$('.site-wrapper-inner').prepend('<div class="top-cover"></div>');
+			$('.cover-container').css('padding-top', '50px');
 			$('.nav-tabs').removeClass('nav-justified').hide().addClass('masthead').css('margin-top', '10px').fadeIn(500);
 		}
 		$(html).hide().appendTo(target).fadeIn(500);
@@ -24,6 +26,8 @@ $(document).on('click', '.close-icon', function() {
 	if((elements.length - 1) == 0) {
 		$('.masthead').fadeIn(500);
 		$('.mastfoot').fadeIn(500);
+		$('.top-cover').remove();
+		$('.cover-container').css('padding-top', '0');
 		$('.nav-tabs').addClass('nav-justified').removeClass('masthead').css('margin-top', '0');
 	}
 	$(this).parent().fadeOut(500);

@@ -93,6 +93,15 @@ app.map({
 							get: api.features.serverStatus
 						}
 					}
+				},
+				'/online-players' : {
+					get: api.features.onlinePlayers,
+					'/:ip' : {
+						get: api.features.onlinePlayers,
+						'/:port' : {
+							get: api.features.onlinePlayers
+						}
+					}
 				}
 			}
 		}

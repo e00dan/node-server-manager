@@ -82,15 +82,21 @@ exports = module.exports = Status = function Status(host, port) {
 				console.log('[Status::getOnlinePlayers][Info]: Received all bytes(' + this.bytesReceived + ').');
 
 				while(origin.PlayersList.length < origin.OnlinePlayers) {
-					console.log('[Status::getOnlinePlayers][Debug]: while(' + origin.PlayersList.length + ' < ' + origin.OnlinePlayers + ').');
 					var nickLength 	= msg.getUint16();
 					var player 		= new Player(msg.getString(nickLength, 'UTF8'), msg.getInt32());
-					//console.log(player);
 					origin.PlayersList.push(player);
 				}
 				console.log('[Status::getOnlinePlayers][Info]: Got all players(' + origin.PlayersList.length + ').')
 				origin.emit('players');
 			}
+		});
+
+		communication.on('error', function(e) {
+			origin.emit('error', e);
+		});
+
+		communication.on('lost', function(e) {
+			origin.emit('error', e);
 		});
 
 		communication.connect();

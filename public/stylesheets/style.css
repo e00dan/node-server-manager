@@ -10,7 +10,16 @@
 	text-shadow: none;
 }
 
-.nav-tabs.nav-justified>li>a:hover {
-	color: white;
-	background-color: rgb(85, 85, 85);
-};
+.nav-tabs>li>a:hover {
+	color: black;
+}
+
+.top-cover {
+	background-color: rgba(0, 0, 0, 0.7);
+	height: 52px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	border-bottom: 1px solid white;
+}
