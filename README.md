@@ -3,6 +3,8 @@
 
 #Node Server Manager is a tool written in node.js
 ------------
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/Kuzirashi/node-server-manager.svg)](https://greenkeeper.io/)
 ...to get various information about server and, in future, give server administrators more control over server.
 
 ## Requirements
